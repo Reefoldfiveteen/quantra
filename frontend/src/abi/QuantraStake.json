@@ -1,0 +1,11 @@
+import { ethers } from "ethers";
+import stakeAbi from "./abi/QuantraStake.json";
+const STAKE_ADDR = "0xYourDeployedAddress";
+
+async function depositUSDC(amount) {
+  if (!window.ethereum) return alert("Install MetaMask!");
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const signer = await provider.getSigner();
+  const stake = new ethers.Contract(STAKE_ADDR, stakeAbi, signer);
+  await stake.deposit(ethers.parseUnits(amount, 6));      // USDC = 6 decimals
+}
