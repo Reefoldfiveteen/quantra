@@ -1,20 +1,30 @@
-name: Hardhat CI
+name: Hardhat CI
 
 on:
+  # jalan otomatis saat push / PR ke main
   push:
     branches: [main]
   pull_request:
     branches: [main]
-  workflow_dispatch:       # ← tambahkan baris ini
+
+  # jalan manual
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    ...
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v4
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm ci
-      - run: npx hardhat test
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Hardhat tests
+        run: npx hardhat test
