@@ -1,13 +1,8 @@
 name: Hardhat CI
 
 on:
-  # jalan otomatis saat push / PR ke main
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
-
-  # jalan manual
   workflow_dispatch:
 
 jobs:
@@ -23,14 +18,15 @@ jobs:
         with:
           node-version: 20
 
-      # ⬇ bisa tetap npm ci; ganti npm install kalau ci sering gagal
       - name: Install deps
         run: npm install
 
-      - name: Hardhat tests
+      - name: Compile contracts
+        run: npx hardhat compile
+
+      - name: Run tests
         run: npx hardhat test
 
-      # —— LANGKAH BARU ——  
       - name: Upload ABI artifact
         uses: actions/upload-artifact@v4
         with:
