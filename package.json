@@ -1,0 +1,12 @@
+{
+  "name": "quantra",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "npx hardhat test"
+  },
+  "devDependencies": {
+    "hardhat": "^3.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0"
+  }
+}
