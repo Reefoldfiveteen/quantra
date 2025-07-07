@@ -1,14 +1,9 @@
-name: Build Frontend
+name: Build Frontend
 
 on:
-  # hanya re‑build kalau folder frontend berubah
   push:
-    branches: [main]
     paths:
       - "frontend/**"
-      - ".github/workflows/frontend.yml"
-
-  # bisa di‑run manual
   workflow_dispatch:
 
 jobs:
@@ -16,19 +11,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Build Vite
+      - name: Install frontend deps
         run: |
           cd frontend
-          npm ci
+          npm install
+
+      - name: Build frontend
+        run: |
+          cd frontend
           npm run build
 
-      - name: Upload Pages artefact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: frontend/dist
@@ -38,6 +39,8 @@ jobs:
     permissions:
       pages: write
       id-token: write
+
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
