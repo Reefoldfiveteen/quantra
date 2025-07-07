@@ -1,19 +1,13 @@
-# dependencies
+# Node.js
 node_modules/
 package-lock.json
-pnpm-lock.yaml
 
-# builds & cache
+# Hardhat
 artifacts/
 cache/
-coverage/
+
+# Vite output
 frontend/dist/
 
-# env secrets
+# Env
 .env
-.env.*
-.env.local
-
-# VSCode & OS
-.vscode/
-.DS_Store
